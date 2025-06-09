@@ -1,0 +1,38 @@
+# Node
+node_modules/
+.pnpm-debug.log*
+pnpm-lock.yaml
+
+# Build
+dist/
+build/
+*.log
+
+# Vite
+.vite/
+
+# Node
+node_modules/
+dist/
+*.log
+npm-debug.log*
+pnpm-lock.yaml
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+
+# Docker
+*.local
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# System
+.DS_Store
+Thumbs.db
+
+*.pem
