@@ -1,0 +1,78 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  PRO
+}
+
+enum Status {
+  PENDING
+  APPROVED
+}
+
+enum SalaTipo {
+  ADULTO
+  INFANTIL
+  ONLINE
+  PERIODO
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  role      Role      @default(PRO)
+  status    Status    @default(PENDING)
+  credits   Int       @default(0)
+  reservas  Reserva[]
+  compras   Compra[]
+  createdAt DateTime  @default(now())
+}
+
+model Sala {
+  id        String    @id @default(uuid())
+  nome      String
+  precoHora Float
+  tipo      SalaTipo
+  ativa     Boolean   @default(true)
+  reservas  Reserva[]
+}
+
+model Pacote {
+  id      String   @id @default(uuid())
+  nome    String
+  horas   Int
+  valor   Float
+  tipo    SalaTipo
+  ativos  Boolean  @default(true)
+  compras Compra[]
+}
+
+model Compra {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  pacote    Pacote   @relation(fields: [pacoteId], references: [id])
+  pacoteId  String
+  horas     Int
+  createdAt DateTime @default(now())
+}
+
+model Reserva {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  sala      Sala     @relation(fields: [salaId], references: [id])
+  salaId    String
+  inicio    DateTime
+  fim       DateTime
+  createdAt DateTime @default(now())
+}

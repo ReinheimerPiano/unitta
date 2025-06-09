@@ -1,0 +1,11 @@
+{
+  "name": "unitta-monorepo",
+  "private": true,
+  "packageManager": "pnpm@8.6.0",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter ./unitta-backend... run start:dev\" \"pnpm --filter ./unitta-frontend... run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
