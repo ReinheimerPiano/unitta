@@ -1,145 +1,130 @@
 # 🚀 Unitta
 
-**Rede inteligente de espaços terapêuticos**
+**Rede inteligente de espaços terapêuticos**  
+*Comece pelo seu centro comportamental. Escale para qualquer lugar.*
 
 ---
 
-## 🌟 Visão geral
+## 🌟 Visão Geral
 
-Unitta é uma plataforma moderna desenvolvida para clínicas e psicólogos independentes. Permite a sublocação de salas por profissionais da área de saúde mental, via compra de créditos ou pacotes de horas. O sistema oferece:
+**Unitta** é uma plataforma moderna criada para facilitar a gestão e sublocação de salas de atendimento psicológico. Profissionais da saúde mental podem adquirir créditos de hora (individual ou pacotes) e utilizá-los para reservar salas por meio de uma interface web interativa e fácil de usar.
 
-- Reservas simples via calendário (estilo Google Agenda)
-- Gestão de créditos (criar, consultar, consumir)
-- Painel administrativo para clínicas: aprovações, salas, pacotes, relatórios
-- Interface web totalmente responsiva (desktop & mobile)
+### Principais recursos:
+- 📅 Reservas por calendário interativo (estilo Google Agenda)
+- 💳 Compra e gerenciamento de créditos
+- 🧠 Painel administrativo com controle de salas, pacotes, aprovações e histórico
+- 📱 Interface web responsiva para desktop e mobile
 
 ---
 
-## 📦 Estrutura do repositório
+## 📦 Estrutura do Repositório
 
+```
 unitta/
-├── docker-compose.yml # Orquestra PostgreSQL, backend e frontend via Docker
-├── unitta-backend/ # API Node.js (Express + Prisma + PostgreSQL)
-├── unitta-frontend/ # Frontend React + Vite + Tailwind + shadcn/UI
-└── README.md # Você está aqui!
-
-yaml
-Copiar
-Editar
+├── docker-compose.yml      # Orquestra PostgreSQL, backend e frontend via Docker
+├── unitta-backend/         # Backend (Node.js + Express + Prisma)
+├── unitta-frontend/        # Frontend (React + Vite + Tailwind)
+└── README.md               # Este arquivo
+```
 
 ---
 
-## ⚙️ Tecnologias principais
+## ⚙️ Tecnologias Utilizadas
 
-**Backend**
+### 🔧 Backend
 - Node.js + Express
 - TypeScript
 - Prisma ORM + PostgreSQL
-- JWT, bcrypt, CORS, morgan, dotenv
+- JWT, bcrypt, cors, dotenv, morgan
 
-**Frontend**
+### 🎨 Frontend
 - React + Vite
 - Tailwind CSS
-- shadcn/UI + React Big Calendar (modo escuro ativado)
-- React Query + Zod (em breve!)
+- shadcn/ui
+- React Big Calendar (com modo escuro)
+- React Query + Zod (em breve)
 
-**Infraestrutura**
+### 🐳 Infraestrutura
 - Docker + Docker Compose
-- PNPM (monorepo)
+- PNPM (estrutura de monorepo)
 
 ---
 
 ## 🧩 Funcionalidades (MVP)
 
-- 💬 Cadastro e login de usuários (admin & profissional)
-- ✔️ Aprovação de cadastro pelos administradores
-- 💳 Sistema de créditos e compra de pacotes
-- 📅 Agenda com reservas e consumo automático de créditos
-- 🏷️ Gestão de salas com valores por tipo (adulto, infantil, online, pacotes por período)
-- 📊 Relatórios de uso e crédito
+- ✅ Cadastro e autenticação de usuários (admin e profissionais)
+- 🔒 Aprovação de cadastro pelo admin
+- 💳 Compra de créditos e pacotes
+- 🗓️ Reserva de salas com desconto automático de créditos
+- 🏷️ Gestão de salas com valores por tipo (adulto, infantil, online)
+- 📊 Relatórios de uso e consumo
 
 ---
 
-## 🚀 Como rodar o projeto localmente
+## 🚀 Como Rodar o Projeto Localmente
 
 ### 1. Pré-requisitos
-
 - Docker + Docker Compose
-- PNPM instalado globalmente
+- PNPM global instalado
 
-### 2. Na raiz do projeto
+### 2. Instruções
+Execute os comandos abaixo a partir da raiz do projeto:
 
 ```bash
 pnpm install
 pnpm run dev
-Ele irá:
+```
 
-Subir o PostgreSQL
-
-Rodar migrate + seed
-
-Subir o backend em http://localhost:3333
-
-Subir o frontend em http://localhost:5173
-
-🔧 Estrutura dos projetos
-🧠 Backend (unitta-backend)
-src/: Rotas, controladores, modelos e configuração do Express
-
-prisma/: schema.prisma + seed.ts
-
-Dockerfile + entrypoint.sh: migrações, seed e start automatizados
-
-🎨 Frontend (unitta-frontend)
-src/components: Componentes reutilizáveis (Calendar, Dialog, etc.)
-
-src/pages: Telas (Home, Login, Dashboard, Agenda, Salas, Créditos)
-
-src/styles: Tailwind + tema dark
-
-✅ Próximos passos
-Cliente:
-
-Integrar compras via gateway (Stripe/Mercado Pago)
-
-Formulário de reserva com seleção de sala + confirmação
-
-Perfil de usuário e histórico de reservas
-
-Backend:
-
-CRUD completo para pacotes, salas, relatórios e reservas
-
-Webhook para atualização automática de créditos
-
-Autenticação robusta + autorização por roles
-
-📬 Contribuição
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests, especialmente para:
-
-Testes unificados (Jest/Supertest)
-
-Tratamento de erros Elasticsearch
-
-Refatoração para monorepo com turbo ou nx
-
-Internacionalização ou suporte a multi-instituições
-
-📝 Licença
-Este projeto está licenciado sob a MIT License.
-
-Feito com ❤️ por ReinheimerPiano
-
-yaml
-Copiar
-Editar
+Isso irá:
+- Subir o PostgreSQL com Docker
+- Rodar `migrate` + `seed` via Prisma
+- Levantar o backend (`http://localhost:3333`)
+- Levantar o frontend (`http://localhost:5173`)
 
 ---
 
-### ✅ Próximos passos:
+## 🗂 Estrutura Interna
 
-- Quer que eu gere badges (build, coverage, license)?
-- Deseja que eu te ajude a preencher seções como *Como contribuir* e *Roadmap*?
-- Posso criar um template de issue e PR para padronizar contribuições.
+### 🧠 Backend (`unitta-backend/`)
+- `src/`: rotas, controladores, serviços
+- `prisma/`: schema.prisma + seed.ts
+- Dockerfile + entrada customizada para migração automatizada
 
-É só falar!
+### 🎨 Frontend (`unitta-frontend/`)
+- `components/`: elementos reutilizáveis (botões, calendários)
+- `pages/`: telas (Login, Dashboard, Agenda, Salas, Créditos)
+- `styles/`: Tailwind CSS e suporte dark mode
+
+---
+
+## 📈 Roadmap (Próximos Passos)
+
+### Frontend
+- Integração com pagamento (Stripe/MercadoPago)
+- Tela de seleção de salas e confirmação
+- Perfil do usuário e histórico de reservas
+
+### Backend
+- CRUD para pacotes, salas e relatórios
+- Webhook para confirmação de compra
+- Migração para autorização por função (roles)
+
+---
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Você pode ajudar com:
+- Testes (Jest, Supertest)
+- Integração contínua ou deploy automático
+- Refatoração para turborepo ou nx
+- Internacionalização e suporte a múltiplas clínicas
+
+---
+
+## 📝 Licença
+
+Distribuído sob a licença **MIT**. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+---
+
+Feito com ❤️ por [@ReinheimerPiano](https://github.com/ReinheimerPiano)
