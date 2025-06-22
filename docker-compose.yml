@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
@@ -17,7 +15,8 @@ services:
     build: ./unitta-backend
     restart: always
     ports:
-      - "3333:3333"
+      - "3333:3333"  # Porta do servidor backend
+      - "5555:5555"  # Porta do Prisma Studio
     depends_on:
       - db
     environment:
