@@ -25,10 +25,40 @@ prisma/dev.db-journal
 # Docker
 *.local
 docker-compose.override.yml
+# Node.js
+/*/node_modules
+/*/npm-debug.log
+/*/yarn-debug.log
+/*/yarn-error.log
+/*/pnpm-debug.log
+/*/dist
+/*/build
+
+# TypeScript
+*.tsbuildinfo
+*.d.ts
+
+# Logs
+*.log
+*.out
+*.pid
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Vite
+/.vite
+/vite-node/
+
+# TypeScript output (compiled files)
+*.tsbuildinfo
 
 # IDEs
 .vscode/
 .idea/
+<<<<<<< HEAD
 *.swp
 
 # System
@@ -36,3 +66,32 @@ docker-compose.override.yml
 Thumbs.db
 
 *.pem
+=======
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Yarn and pnpm lock files
+yarn.lock
+pnpm-lock.yaml
+
+# Backup files
+*~
+*.bak
+
+# Frontend build
+/dist
+/build
+
+# Backend build (for example, if using TS/ESBuild for backend)
+dist/
+
+# Test coverage output (optional if you are using testing tools)
+coverage/
+
+# Temporary files
+*.swp
+>>>>>>> 0d3ad4e (feat(backend):initial commit)
