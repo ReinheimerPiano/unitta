@@ -24,6 +24,23 @@ enum SalaTipo {
   PERIODO
 }
 
+enum TipoReserva {
+  NORMAL
+  PERIODO
+}
+
+enum FaixaHorario {
+  MANHA
+  TARDE
+  SABADO
+}
+
+enum StatusCompra {
+  PENDENTE
+  CONFIRMADA
+  RECUSADA
+}
+
 model User {
   id        String    @id @default(uuid())
   name      String
@@ -31,48 +48,82 @@ model User {
   password  String
   role      Role      @default(PRO)
   status    Status    @default(PENDING)
-  credits   Int       @default(0)
   reservas  Reserva[]
   compras   Compra[]
+  creditos  Credito[]
   createdAt DateTime  @default(now())
 }
 
 model Sala {
-  id        String    @id @default(uuid())
-  nome      String
-  precoHora Float
-  tipo      SalaTipo
-  ativa     Boolean   @default(true)
-  reservas  Reserva[]
+  id                String       @id @default(uuid())
+  nome              String
+  codigo            String // ex: "Sala 3", "Sala 1"
+  precoHora         Float
+  tipo              SalaTipo
+  ativa             Boolean      @default(true)
+  aceitaPeriodo     Boolean      @default(false)
+  reservas          Reserva[]
+  pacotesPermitidos PacoteSala[]
 }
 
 model Pacote {
-  id      String   @id @default(uuid())
-  nome    String
-  horas   Int
-  valor   Float
-  tipo    SalaTipo
-  ativos  Boolean  @default(true)
-  compras Compra[]
+  id                    String        @id @default(uuid())
+  nome                  String
+  horas                 Int
+  valor                 Float
+  tipo                  SalaTipo
+  ativos                Boolean       @default(true)
+  quantidadeHorasMinima Int? // define se exige mínimo de horas
+  ehPorPeriodo          Boolean       @default(false)
+  precoHora             Float? // usado se ehPorPeriodo = true
+  faixaHorario          FaixaHorario? // para pacotes de período
+  compras               Compra[]
+  salasPermitidas       PacoteSala[]
+}
+
+model PacoteSala {
+  id       String @id @default(uuid())
+  sala     Sala   @relation(fields: [salaId], references: [id])
+  salaId   String
+  pacote   Pacote @relation(fields: [pacoteId], references: [id])
+  pacoteId String
 }
 
 model Compra {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  pacote    Pacote   @relation(fields: [pacoteId], references: [id])
-  pacoteId  String
-  horas     Int
-  createdAt DateTime @default(now())
+  id           String       @id @default(uuid())
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String
+  pacote       Pacote?      @relation(fields: [pacoteId], references: [id])
+  pacoteId     String?
+  horas        Int
+  valorTotal   Float
+  compraAvulsa Boolean      @default(false)
+  status       StatusCompra @default(PENDENTE) // confirmação manual
+  createdAt    DateTime     @default(now())
+  creditos     Credito[]
 }
 
 model Reserva {
+  id           String      @id @default(uuid())
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String
+  sala         Sala        @relation(fields: [salaId], references: [id])
+  salaId       String
+  inicio       DateTime
+  fim          DateTime
+  tipoReserva  TipoReserva @default(NORMAL)
+  valorCobrado Float
+  createdAt    DateTime    @default(now())
+}
+
+model Credito {
   id        String   @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  sala      Sala     @relation(fields: [salaId], references: [id])
-  salaId    String
-  inicio    DateTime
-  fim       DateTime
+  compra    Compra   @relation(fields: [compraId], references: [id])
+  compraId  String
+  horas     Int
+  usadas    Int      @default(0)
+  tipo      SalaTipo
   createdAt DateTime @default(now())
 }

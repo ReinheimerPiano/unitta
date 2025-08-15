@@ -1,17 +1,10 @@
+
 import { Router } from 'express';
+import { login, signup } from '../controllers/auth.controller';
 
-const authRouter = Router();
+const router = Router();
 
-authRouter.post('/login', (req, res) => {
-  // Lógica de autenticação
-});
+router.post('/login',login);
+router.post('/singup',signup);
 
-authRouter.post('/register', (req, res) => {
-  // Solicitação de cadastro (para aprovação posterior)
-});
-
-authRouter.post('/logout', (req, res) => {
-  // Logout
-});
-
-export default authRouter;
+export default router;

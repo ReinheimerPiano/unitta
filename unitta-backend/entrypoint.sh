@@ -11,7 +11,16 @@ echo "Banco de dados disponível! Executando Prisma..."
 
 npx prisma generate
 npx prisma migrate deploy
-npx prisma db seed
+
+# Verificar se o banco de dados já tem dados
+if ! npx prisma db seed --skip-seed-check; then
+  echo "Banco de dados já populado, seed não será executado."
+else
+  # Rodar o seed (inserir dados iniciais no banco)
+  npx ts-node ./prisma/seed.ts
+fi
+
+npx prisma studio &
 
 echo "Iniciando servidor Node"
 npx ts-node-dev src/server.ts
